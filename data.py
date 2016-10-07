@@ -5,24 +5,27 @@ import matplotlib.pyplot as plt
 # The distribution is uniform inside an equilateral
 # triangle with unit side length, and zero outside. To generate the input
 # data set, draw 1000 points uniformly distributed within this triangle:
-# http://mathworld.wolfram.com/TrianglePointPicking.html
-# and
-# http://math.stackexchange.com/questions/51326/determining-if-an-arbitrary-point-lies-inside-a-triangle-defined-by-three-points
-A = np.array([0, 0]).reshape(2, 1)
-B = np.array([1, 0]).reshape(2, 1)
-C = np.array([0.5, np.sqrt(3)/2]).reshape(2, 1)
-v_1 = np.random.uniform(low=0.0, high=1.0, size=1000)
-v_2 = np.random.uniform(low=0.0, high=1.0, size=1000)
-P = B*v_1 + C*v_2
-#AB =
-#AC =
-#BC =
-AP = A-P
-BP = B-P
-CP = C-P
-np.cross()
+points = []
+while len(points) < 1000:
+    A = np.array([0, 0])
+    B = np.array([1, 0])
+    C = np.array([0.5, np.sqrt(3)/2])
+    v_1 = np.random.uniform(low=0.0, high=1.0, size=None)
+    v_2 = np.random.uniform(low=0.0, high=1.0, size=None)
+    P = B*v_1 + C*v_2 # http://mathworld.wolfram.com/TrianglePointPicking.html
+    AB = A - B
+    BC = B - C
+    CA = C - A
+    AP = A-P
+    BP = B-P
+    CP = C-P
+    # http://math.stackexchange.com/questions/51326/determining-if-an-arbitrary-point-lies-inside-a-triangle-defined-by-three-points
+    if np.sign(np.cross(AB, AP)) == np.sign(np.cross(BC, BP)) == np.sign(np.cross(CA, CP)):
+        points = points + [P]
+triangle_data = np.array(points)
+
 plt.figure()
-plt.scatter(P[0, :], P[1, :], color='black', marker='*')
+plt.scatter(triangle_data[:, 0], triangle_data[:, 1], color='black', marker='*')
 plt.ylim(ymin=0.0)
 plt.xlim(xmin=0.0)
 plt.show()
