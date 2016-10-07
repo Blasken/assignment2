@@ -16,4 +16,6 @@ T_conv = 50000
 sigma = lambda t: sigma_0 * np.exp(-t/tau)
 n = lambda t: n_0 * np.exp(-t/tau)
 
+neighbourhood = lambda t, i1, i0: np.exp(-((r[i1]-r[i0])**2)/(2*sigma(t)**2))
+dWij = lambda i, j: 
 
