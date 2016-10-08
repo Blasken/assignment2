@@ -6,22 +6,16 @@ import matplotlib.pyplot as plt
 # triangle with unit side length, and zero outside. To generate the input
 # data set, draw 1000 points uniformly distributed within this triangle:
 points = []
+A = np.array([0, 0])
+B = np.array([1, 0])
+C = np.array([0.5, np.sqrt(3)/2])
 while len(points) < 1000:
-    A = np.array([0, 0])
-    B = np.array([1, 0])
-    C = np.array([0.5, np.sqrt(3)/2])
     v_1 = np.random.uniform(low=0.0, high=1.0, size=None)
     v_2 = np.random.uniform(low=0.0, high=1.0, size=None)
     P = B*v_1 + C*v_2 # http://mathworld.wolfram.com/TrianglePointPicking.html
-    AB = A - B
-    BC = B - C
-    CA = C - A
-    AP = A-P
-    BP = B-P
-    CP = C-P
-    # http://math.stackexchange.com/questions/51326/determining-if-an-arbitrary-point-lies-inside-a-triangle-defined-by-three-points
-    if np.sign(np.cross(AB, AP)) == np.sign(np.cross(BC, BP)) == np.sign(np.cross(CA, CP)):
-        points = points + [P]
+    if np.sqrt(3) * P[0] >= P[1] and np.sqrt(3) * P[0] + P[1] <= np.sqrt(3):
+        points.append(P)
+
 triangle_data = np.array(points)
 
 plt.figure()
