@@ -37,4 +37,13 @@ print('  class 1 ' + str(class1.shape))
 print('  class 2 ' + str(class2.shape))
 print('  class 3 ' + str(class3.shape))
 
+data = []
+with open('task3.txt') as f:
+    for line in f:
+        clss, x1, x2 = line.split()
+        data.append(((float(x1),float(x2)), int(clss)))
 
+task3 = np.array(data, dtype=[('point', [('x1', np.float), ('x2', np.float)]),
+                              ('class', np.int)])
+
+print(task3['point'][0], task3['class'][0])
