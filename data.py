@@ -44,9 +44,9 @@ with open('wine.data.txt') as f:
         data.append((datas, clss))
 task2 = np.array(data, dtype=[('data', np.float, (13,)),('class', np.int)])
 
-print(task2[['data','class']][0:2])
-print(task2[0:2])
-print(task2['data'])
+#print(task2[['data','class']][0:2])
+#print(task2[0:2])
+#print(task2['data'])
 
 data = []
 with open('task3.txt') as f:
@@ -56,4 +56,4 @@ with open('task3.txt') as f:
 task3 = np.array(data, dtype=[('point', [('x1', np.float), ('x2', np.float)]),
                               ('class', np.int)])
 
-print(task3['point'][0], task3['class'][0])
+#print(task3['point'][0], task3['class'][0])
