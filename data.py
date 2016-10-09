@@ -19,11 +19,11 @@ while len(points) < 1000:
 
 triangle_data = np.array(points)
 
-plt.figure()
-plt.scatter(triangle_data[:, 0], triangle_data[:, 1], color='black', marker='*')
-plt.ylim(ymin=0.0)
-plt.xlim(xmin=0.0)
-plt.show()
+#plt.figure()
+#plt.scatter(triangle_data[:, 0], triangle_data[:, 1], color='black', marker='*')
+#plt.ylim(ymin=0.0)
+#plt.xlim(xmin=0.0)
+#plt.show()
 
 # b)
 wine_data = np.loadtxt('wine.data.txt', delimiter=',')
