@@ -2,12 +2,26 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def plot_triangle(ax):
+    """
+    plot a triangle on an axis
+
+    :param ax: pyplot axis to draw triangle on
+    :type ax: pyplot axis type
+    .. todo:: make it pretty
+    """
     xs1 = np.arange(0,0.51,0.01)
     xs2 = np.arange(0.5,1.01,0.01)
     ax.plot(xs1, sqrt3*xs1, color='blue')
     ax.plot(xs2, -sqrt3*xs2+sqrt3, color='blue')
 
 def plot_data(data):
+    """
+    scatter data on an instantiated figure
+
+    :param data: data to scatter on the figure
+    :type data: 2-dimensional array of points
+    .. todo:: add the figure as argument, else this function is unnecessary
+    """
     plt.scatter(data[:, 0], data[:, 1], color='black', marker='*')
 
 # a)
