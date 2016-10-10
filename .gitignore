@@ -94,3 +94,4 @@ ENV/
 .idea/workspace.xml
 .idea/dictionaries/Alexander.xml
 
+*.png

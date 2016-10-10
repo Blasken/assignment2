@@ -1,6 +1,15 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+def plot_triangle(ax):
+    xs1 = np.arange(0,0.51,0.01)
+    xs2 = np.arange(0.5,1.01,0.01)
+    ax.plot(xs1, sqrt3*xs1, color='blue')
+    ax.plot(xs2, -sqrt3*xs2+sqrt3, color='blue')
+
+def plot_data(data):
+    plt.scatter(data[:, 0], data[:, 1], color='black', marker='*')
+
 # a)
 # The distribution is uniform inside an equilateral
 # triangle with unit side length, and zero outside. To generate the input
@@ -18,12 +27,6 @@ while len(points) < 1000:
         points.append(P)
 
 triangle_data = np.array(points)
-
-#plt.figure()
-#plt.scatter(triangle_data[:, 0], triangle_data[:, 1], color='black', marker='*')
-#plt.ylim(ymin=0.0)
-#plt.xlim(xmin=0.0)
-#plt.show()
 
 # b)
 wine_data = np.loadtxt('wine.data.txt', delimiter=',')
