@@ -19,6 +19,25 @@ def neighbourhood_g(W, i0, sigma):
     return np.exp(- lattice_distance / (2 * sigma ** 2))
 
 def kohonen(data, W, T, sigma, n):
+    """
+    Updating weights using kohonens algorithm,
+    :math:`\\mathbf{W_v}(s+1)=\\mathbf{W_v}(s)+\\alpha(s)...`
+
+    :param data: data to apply algorithm on
+    :param W: Weights for algorithm
+    :param T: T timesteps?
+    :param sigma: sigma value for algorithm
+    :param n: n-values for algorithm?
+    :type data: numpy array
+    :type W: numpy array
+    :type T: integer
+    :type sigma: float
+    :type n: 1-d numpy array
+    :returns: updated weights
+
+    .. note:: this is a bit overkill for a comment, but params should be there
+    .. todo:: fix this comment...
+    """
     for t in range(T):
         for x in data:
             #x = data[np.random.choice(range(len(data)), None)]
