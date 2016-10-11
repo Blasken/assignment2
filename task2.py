@@ -1,45 +1,8 @@
-import numpy as np
-import matplotlib.pyplot as plt
-from data import triangle_data, plot_triangle
-from kohonen import ordering_phase
+#import numpy as np
+#import matplotlib.pyplot as plt
+from data import class1_n, class2_n, class3_n
+#from kohonen import ordering_phase
 
-fig, (ax1, ax2, ax3) = plt.subplots(1, 3)
-ax1.set_xlim((0.0, 1.0))
-ax1.set_ylim((0.0, 1.0))
-ax2.set_xlim((0.0, 1.0))
-ax2.set_ylim((0.0, 1.0))
-ax3.set_xlim((0.0, 1.0))
-ax3.set_ylim((0.0, 1.0))
-
-# Init weights
-nr_of_input_units = 2
-nr_of_output_units = (10, 10)
-W_shape = (nr_of_output_units[0], nr_of_output_units[1], nr_of_input_units)
-W = np.random.normal(loc=0.5, scale=0.01, size=W_shape)
-#W = np.array([[[y, x] for x in np.arange(0.25, 0.75, 0.005)] for y in np.arange(0.25, 0.75, 0.025)])
-ax1.scatter(W[:, :, 0], W[:, :, 1], color='black', marker='*')
-plot_triangle(ax1)
-
-# ordering phase
-tau = 300.0
-sigma_0 = 30
-n_0 = 0.1
-T_order = 1000
-ordering_phase(triangle_data, W, T_order, tau, sigma_0, n_0)
-
-ax2.scatter(W[:, :, 0], W[:, :, 1], color='black', marker='*')
-plot_triangle(ax2)
-
-# convergence phase
-tau = 300.0
-sigma_conv = 0.9
-n_conv = 0.01
-T_conv = 2000
-ordering_phase(triangle_data, W, T_conv, tau, sigma_conv, n_conv)
-
-ax3.scatter(W[:, :, 0], W[:, :, 1], color='black', marker='*')
-plot_triangle(ax3)
-
-plt.savefig('task2.png')
-plt.show()
-
+print(class1_n[0,:])
+print(class2_n[0,:])
+print(class3_n[0,:])

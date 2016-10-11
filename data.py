@@ -44,15 +44,26 @@ triangle_data = np.array(points)
 
 # b)
 wine_data = np.loadtxt('wine.data.txt', delimiter=',')
-print('Data shape' + str(wine_data.shape))
 
-# classes
+# In the data set, the first column is a classification and should be ignored during learning.
 class1 = wine_data[np.where(wine_data[:, 0] == 1), 1:14][0]
 class2 = wine_data[np.where(wine_data[:, 0] == 2), 1:14][0]
 class3 = wine_data[np.where(wine_data[:, 0] == 3), 1:14][0]
-print('  class 1 ' + str(class1.shape))
-print('  class 2 ' + str(class2.shape))
-print('  class 3 ' + str(class3.shape))
+
+# For each remaining column in the data set, normalise the data to zero mean and unit variance.
+mean1 = np.mean(class1, axis=0)
+class1_m = class1 - mean1
+mean2 = np.mean(class2, axis=0)
+class2_m = class2 - mean2
+mean3 = np.mean(class3, axis=0)
+class3_m = class3 - mean3
+
+var1 = np.var(class1_m, axis=0)
+class1_n = class1_m / np.sqrt(var1)
+var2 = np.var(class2_m, axis=0)
+class2_n = class2_m / np.sqrt(var2)
+var3 = np.var(class3_m, axis=0)
+class3_n = class3_m / np.sqrt(var3)
 
 data = []
 with open('wine.data.txt') as f:
