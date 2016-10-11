@@ -101,7 +101,6 @@ def ordering_phase(data, W, T_order, tau, sigma_0, n_0):
 def convergence_phase(data, W, T_conv, tau, sigma_conv, n_conv):
     """
     The convergence phase using kohonen's algorithm.
-
     :param data: input
     :param W: weights
     :param T_conv: number of iterations
