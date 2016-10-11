@@ -2,6 +2,14 @@ import numpy as np
 
 # gaussian
 def neighbourhood_g(W, i0, sigma):
+    """
+    Gaussian neighbourhood function, see lecture notes.
+    Distance between output neurons is the distance between indices in the output matrix.
+    :param W:
+    :param i0:
+    :param sigma:
+    :return:
+    """
     row = i0 // W.shape[1]
     column = i0 % W.shape[1]
     ij = np.array([row, column])
@@ -10,7 +18,17 @@ def neighbourhood_g(W, i0, sigma):
     return np.exp(- lattice_distance / (2 * sigma ** 2))
 
 # step
-def neighbourhood_s(W, i0, _):
+def neighbourhood_s(W, i0, sigma):
+    """
+    TODO: this is just a test but this code could be written in a smarter/shorter way... LOL
+    Neighbourhood is 1.0 for i0 and 0.5 for the closest units to i0 in the output matrix.
+    Neighbourhood is 0.0 for all other nodes.
+
+    :param W:
+    :param i0:
+    :param _:
+    :return:
+    """
     i = i0 // W.shape[1]
     j = i0 % W.shape[1]
 
@@ -63,11 +81,35 @@ def kohonen(data, W, T, sigma, n):
     return W
 
 def ordering_phase(data, W, T_order, tau, sigma_0, n_0):
+    """
+    The ordering phase using kohonen's algorithm.
+    Width, sigma(t), decreases with time.
+    Learning rate, n(t), decreases with time.
+
+    :param data: input
+    :param W: weights
+    :param T_order: number of iterations
+    :param tau: int/float
+    :param sigma_0: int/float
+    :param n_0: int/float
+    :return: updated W
+    """
     sigma = lambda t: sigma_0 * np.exp(-t / tau)
     n = lambda t: n_0 * np.exp(-t / tau)
     return kohonen(data, W, T_order, sigma, n)
 
 def convergence_phase(data, W, T_conv, tau, sigma_conv, n_conv):
+    """
+    The convergence phase using kohonen's algorithm.
+
+    :param data: input
+    :param W: weights
+    :param T_conv: number of iterations
+    :param tau: not used.
+    :param sigma_conv: width of domain, constant
+    :param n_conv: learning rate, constant
+    :return: updated W
+    """
     sigma = lambda t: sigma_conv
     n = lambda t: n_conv
     return kohonen(data, W, T_conv, sigma, n)
