@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from data import triangle_data, plot_triangle
-from kohonen_test import ordering_phase
+from kohonen import ordering_phase
 
 fig, (ax1, ax2, ax3) = plt.subplots(1, 3)
 ax1.set_xlim((0.0, 1.0))
@@ -13,10 +13,10 @@ ax3.set_ylim((0.0, 1.0))
 
 # Init weights
 nr_of_input_units = 2
-nr_of_output_units = (20, 20)
+nr_of_output_units = (10, 10)
 W_shape = (nr_of_output_units[0], nr_of_output_units[1], nr_of_input_units)
 W = np.random.normal(loc=0.5, scale=0.01, size=W_shape)
-W = np.array([[[y, x] for x in np.arange(0.25, 0.75, 0.005)] for y in np.arange(0.25, 0.75, 0.025)])
+#W = np.array([[[y, x] for x in np.arange(0.25, 0.75, 0.005)] for y in np.arange(0.25, 0.75, 0.025)])
 ax1.scatter(W[:, :, 0], W[:, :, 1], color='black', marker='*')
 plot_triangle(ax1)
 

@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from data import triangle_data, plot_triangle
-from kohonen_test import ordering_phase, convergence_phase
+from kohonen import ordering_phase, convergence_phase
 
 sigmas = {'a': 100,'b':5}
 for q in ['a','b']:
@@ -15,10 +15,10 @@ for q in ['a','b']:
 
     # Init weights
     nr_of_input_units = 2
-    nr_of_output_units = (1,100)
+    nr_of_output_units = (1,50)
     W_shape = (nr_of_output_units[0], nr_of_output_units[1], nr_of_input_units)
     W = np.random.normal(loc=0.5, scale=0.01, size=W_shape)
-    W = np.array([[[x,0.5] for x in np.arange(0.25, 0.75, 0.005)]])
+    #W = np.array([[[x,0.5] for x in np.arange(0.25, 0.75, 0.005)]])
     ax1.scatter(W[:,:,0], W[:,:,1], color='black', marker='*')
     plot_triangle(ax1)
 
