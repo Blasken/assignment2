@@ -73,7 +73,8 @@ def kohonen(data, W, T, sigma, n):
     .. todo:: fix this comment...
     """
     for t in range(T):
-        for i in np.random.choice(range(len(data)), len(data), replace=False):
+        rand = np.random.choice(range(len(data)), len(data), replace=False)
+        for i in rand:
             x = data[i]
             i0 = np.argmax(W.dot(x))
             dW = n(t) * neighbourhood_s(W, i0, sigma(t)) * (x - W).T
