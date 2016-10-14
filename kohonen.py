@@ -5,6 +5,7 @@ def neighbourhood_g(W, i0, sigma):
     """
     Gaussian neighbourhood function, see lecture notes.
     Distance between output neurons is the distance between indices in the output matrix.
+    The gaussian neighbourhood function is on p. 177 in lecture notes.
     :param W:
     :param i0:
     :param sigma:
@@ -54,8 +55,11 @@ def neighbourhood_s(W, i0, sigma):
 
 def kohonen(data, W, T, sigma, n):
     """
-    Updating weights using kohonens algorithm,
-    :math:`\\mathbf{W_v}(s+1)=\\mathbf{W_v}(s)+\\alpha(s)...`
+    For each iteration, take a random input and update
+    weights using kohonen's algorithm. Update rule for kohonen's algorithm is on
+    p.175 in lecture notes.
+
+    :math:`\\mathbf{\partial W} = \\mathbf{W_v}(s)+\\alpha(s)...`
 
     :param data: data to apply algorithm on
     :param W: Weights for algorithm
@@ -84,7 +88,7 @@ def kohonen(data, W, T, sigma, n):
 def ordering_phase(data, W, T_order, tau, sigma_0, n_0):
     """
     The ordering phase using kohonen's algorithm.
-    Width, sigma(t), decreases with time.
+    Domain width, sigma(t), decreases with time.
     Learning rate, n(t), decreases with time.
 
     :param data: input
