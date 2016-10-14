@@ -15,7 +15,7 @@ for q in ['a','b']:
 
     # Init weights
     nr_of_input_units = 2
-    nr_of_output_units = (1,50)
+    nr_of_output_units = (1,100)
     W_shape = (nr_of_output_units[0], nr_of_output_units[1], nr_of_input_units)
     W = np.random.normal(loc=0.5, scale=0.01, size=W_shape)
     #W = np.array([[[x,0.5] for x in np.arange(0.25, 0.75, 0.005)]])

@@ -1,4 +1,5 @@
 import numpy as np
+from numpy.linalg import norm
 
 # gaussian
 def neighbourhood_g(W, i0, sigma):
@@ -15,7 +16,7 @@ def neighbourhood_g(W, i0, sigma):
     column = i0 % W.shape[1]
     ij = np.array([row, column])
     indices = np.indices((W.shape[0], W.shape[1])).T
-    lattice_distance = np.sum((indices - ij) ** 2, 2)
+    lattice_distance = norm(indices - ij, axis=2) ** 2 #  np.sum((indices - ij) ** 2, 2)
     return np.exp(- lattice_distance / (2 * sigma ** 2))
 
 # step
@@ -80,8 +81,9 @@ def kohonen(data, W, T, sigma, n):
         rand = np.random.choice(range(len(data)), len(data), replace=False)
         for i in rand:
             x = data[i]
-            i0 = np.argmax(W.dot(x))
-            dW = n(t) * neighbourhood_s(W, i0, sigma(t)) * (x - W).T
+            #i0 = np.argmax(W.dot(x))
+            i0 = np.argmin(norm(W-x, axis=2))
+            dW = n(t) * neighbourhood_g(W, i0, sigma(t)) * (x - W).T
             W += dW.T
     return W
 

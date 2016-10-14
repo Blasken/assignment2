@@ -13,7 +13,7 @@ ax3.set_ylim((0.0, 1.0))
 
 # Init weights
 nr_of_input_units = 2
-nr_of_output_units = (10, 10)
+nr_of_output_units = (20, 20)
 W_shape = (nr_of_output_units[0], nr_of_output_units[1], nr_of_input_units)
 W = np.random.normal(loc=0.5, scale=0.01, size=W_shape)
 #W = np.array([[[y, x] for x in np.arange(0.25, 0.75, 0.005)] for y in np.arange(0.25, 0.75, 0.025)])
