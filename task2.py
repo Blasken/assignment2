@@ -1,4 +1,5 @@
 import numpy as np
+from numpy.linalg import norm
 import matplotlib.pyplot as plt
 from data import class1_n, class2_n, class3_n
 from kohonen import ordering_phase, convergence_phase
@@ -35,25 +36,25 @@ convergence_phase(data, W, T_conv, tau, sigma_conv, n_conv)
 ax2.scatter(W[:, :, 0], W[:, :, 1], color='black', marker='*')
 
 for x in class1_n:
-    i0 = np.argmax(W.dot(x))
+    i0 = np.argmin(norm(W - x, axis=2))
     row = i0 // W.shape[1]
     column = i0 % W.shape[1]
     w = W[row, column]
     ax2.scatter(w[0], w[1], color='blue')
 
 for x in class2_n:
-    i0 = np.argmax(W.dot(x))
+    i0 = np.argmin(norm(W - x, axis=2))
     row = i0 // W.shape[1]
     column = i0 % W.shape[1]
     w = W[row, column]
     ax2.scatter(w[0], w[1], color='green')
 
 for x in class3_n:
-    i0 = np.argmax(W.dot(x))
+    i0 = np.argmin(norm(W - x, axis=2))
     row = i0 // W.shape[1]
     column = i0 % W.shape[1]
     w = W[row, column]
     ax2.scatter(w[0], w[1], color='red')
 
-plt.show()
-
+#plt.show()
+plt.savefig('task2.png')
