@@ -4,19 +4,16 @@ import matplotlib.pyplot as plt
 from data import class1_n, class2_n, class3_n
 from kohonen import ordering_phase, convergence_phase
 
-print(class1_n[0, :])
-print(class2_n[0, :])
-print(class3_n[0, :])
-
 data = np.append(class1_n, class2_n, axis=0)
 data = np.append(data, class3_n, axis=0)
-print(data.shape)
+np.random.shuffle(data)
 
 nr_of_input_units = 13
 nr_of_output_units = (20, 20)
 W_shape = (nr_of_output_units[0], nr_of_output_units[1], nr_of_input_units)
 W = np.random.normal(loc=0.5, scale=0.01, size=W_shape)
 
+#TODO: normalise weigths!!!
 tau = 300.0
 sigma_0 = 30
 n_0 = 0.1
@@ -32,7 +29,7 @@ sigma_conv = 0.9
 n_conv = 0.01
 T_conv = 2000
 convergence_phase(data, W, T_conv, tau, sigma_conv, n_conv)
-
+print(W)
 ax2.scatter(W[:, :, 0], W[:, :, 1], color='black', marker='*')
 
 for x in class1_n:

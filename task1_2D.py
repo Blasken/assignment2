@@ -21,10 +21,10 @@ ax1.scatter(W[:, :, 0], W[:, :, 1], color='black', marker='*')
 plot_triangle(ax1)
 
 # ordering phase
-tau = 300.0
-sigma_0 = 30
+tau = 200.0
+sigma_0 = 5
 n_0 = 0.1
-T_order = 1000
+T_order = 1 #000
 ordering_phase(triangle_data, W, T_order, tau, sigma_0, n_0)
 
 ax2.scatter(W[:, :, 0], W[:, :, 1], color='black', marker='*')
