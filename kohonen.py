@@ -16,43 +16,8 @@ def neighbourhood_g(W, i0, sigma):
     column = i0 % W.shape[1]
     ij = np.array([row, column])
     indices = np.indices((W.shape[0], W.shape[1])).T
-    lattice_distance = norm(indices - ij, axis=2) ** 2 #  np.sum((indices - ij) ** 2, 2)
+    lattice_distance = norm(indices - ij, axis=2) ** 2
     return np.exp(- lattice_distance.T / (2 * sigma ** 2))
-
-# step
-def neighbourhood_s(W, i0, sigma):
-    """
-    TODO: this is just a test but this code could be written in a smarter/shorter way... LOL
-    Neighbourhood is 1.0 for i0 and 0.5 for the closest units to i0 in the output matrix.
-    Neighbourhood is 0.0 for all other nodes.
-
-    :param W:
-    :param i0:
-    :param _:
-    :return:
-    """
-    i = i0 // W.shape[1]
-    j = i0 % W.shape[1]
-
-    N = np.zeros((W.shape[0], W.shape[1]))
-    N[i,j] = 1.0
-    if j - 1 >= 0:
-        N[i,j-1] = 0.5
-    if j + 1 < W.shape[1]:
-        N[i,j+1] = 0.5
-    if i - 1 >= 0:
-        N[i-1,j] = 0.5
-        if j - 1 >= 0:
-            N[i-1,j-1] = 0.5
-        if j + 1 < W.shape[1]:
-            N[i-1,j+1] = 0.5
-    if i+1 < W.shape[0]:
-        N[i+1,j] = 0.5
-        if j-1 >= 0:
-            N[i+1,j-1] = 0.5
-        if j + 1 < W.shape[1]:
-            N[i+1,j+1] = 0.5
-    return N.T
 
 def kohonen(data, W, T, sigma, n, normalise):
     """

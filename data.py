@@ -11,13 +11,10 @@ def plot_triangle(ax):
     """
     xs1 = np.arange(0,0.51,0.01)
     xs2 = np.arange(0.5,1.01,0.01)
-    ax.plot(xs1, sqrt3*xs1, color='blue')
-    ax.plot(xs2, -sqrt3*xs2+sqrt3, color='blue')
-
-def plot_circle(ax):
-    xs1 = np.arange(-1.0, 1.00, 0.01)
-    ax.plot(xs1, np.sqrt(1-xs1**2), color='blue')
-    ax.plot(xs1, -np.sqrt(1 - xs1 ** 2), color='blue')
+    xs3 = np.arange(0.0,1.01,0.01)
+    ax.plot(xs1, sqrt3*xs1, color='black')
+    ax.plot(xs2, -sqrt3*xs2+sqrt3, color='black')
+    ax.plot(xs3, np.zeros(len(xs3)), color='black')
 
 def plot_data(data):
     """
@@ -46,14 +43,6 @@ while len(points) < 1000:
         points.append(P)
 
 triangle_data = np.array(points)
-
-points = []
-x = np.array([1, 0])
-y = np.array([0, 1])
-v_1 = np.random.uniform(low=-np.pi, high=np.pi, size=1000)
-v_2 = np.random.uniform(low=0, high=1, size=1000)
-points = list(zip(v_2*np.cos(v_1), v_2*np.sin(v_1)))
-circle_data = np.array(points)
 
 # b)
 wine_data = np.loadtxt('wine.data.txt', delimiter=',')
