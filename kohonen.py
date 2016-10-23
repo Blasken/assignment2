@@ -46,12 +46,12 @@ def kohonen(data, W, T, sigma, n, normalise):
     for t in range(T):
         #rand = np.random.choice(range(len(data)), len(data), replace=False)
         #for i in rand:
-        for x in data:
-            #x = data[i]
-            #i0 = np.argmax(W.dot(x))
-            i0 = np.argmin(norm(W-x, axis=2))
-            dW = n(t) * neighbourhood_g(W, i0, sigma(t)).T * (x - W).T
-            W += dW.T
+        #for x in data:
+        x = data[t % len(data)]
+        #i0 = np.argmax(W.dot(x))
+        i0 = np.argmin(norm(W-x, axis=2))
+        dW = n(t) * neighbourhood_g(W, i0, sigma(t)).T * (x - W).T
+        W += dW.T
             #if normalise:
             #    W.T.dot(1/norm(W, axis=2))
     return W

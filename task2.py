@@ -6,14 +6,16 @@ from kohonen import ordering_phase, convergence_phase
 
 data = np.append(class1_n, class2_n, axis=0)
 data = np.append(data, class3_n, axis=0)
-np.random.shuffle(data)
+#np.random.shuffle(data)
+print(data.shape)
+#print(data)
 
 nr_of_input_units = 13
 nr_of_output_units = (20, 20)
 W_shape = (nr_of_output_units[0], nr_of_output_units[1], nr_of_input_units)
 W = np.random.normal(loc=0.5, scale=0.01, size=W_shape)
 
-#TODO: normalise weigths!!!
+#TODO: normalise weigths?
 tau = 300.0
 sigma_0 = 30
 n_0 = 0.1
@@ -27,9 +29,9 @@ ax1.scatter(W[:, :, 0], W[:, :, 1], color='black', marker='*')
 tau = 300.0
 sigma_conv = 0.9
 n_conv = 0.01
-T_conv = 2000
+T_conv = 20000
 convergence_phase(data, W, T_conv, tau, sigma_conv, n_conv)
-print(W)
+#print(W)
 ax2.scatter(W[:, :, 0], W[:, :, 1], color='black', marker='*')
 
 for x in class1_n:
