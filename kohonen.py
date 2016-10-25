@@ -1,8 +1,8 @@
 import numpy as np
 from numpy.linalg import norm
 
-# gaussian
-def neighbourhood_g(W, i0, sigma):
+
+def neighbourhood(W, i0, sigma):
     """
     Gaussian neighbourhood function, see lecture notes.
     Distance between output neurons is the distance between indices in the output matrix.
@@ -12,12 +12,12 @@ def neighbourhood_g(W, i0, sigma):
     :param sigma:
     :return:
     """
-    row = i0 // W.shape[1]
-    column = i0 % W.shape[1]
-    ij = np.array([row, column])
-    indices = np.indices((W.shape[0], W.shape[1])).T
-    lattice_distance = norm(indices - ij, axis=2) ** 2
+    shape = (W.shape[0], W.shape[1])
+    (row, column) = np.unravel_index(i0, shape)
+    indices = np.indices(shape).T
+    lattice_distance = norm(indices - np.array([row, column]), axis=2, ord=2) ** 2
     return np.exp(- lattice_distance.T / (2 * sigma ** 2))
+
 
 def kohonen(data, W, T, sigma, n, normalise):
     """
@@ -39,22 +39,20 @@ def kohonen(data, W, T, sigma, n, normalise):
     :type n: 1-d numpy array
     :type normalise: boolean
     :returns: updated weights
-
-    .. note:: this is a bit overkill for a comment, but params should be there
-    .. todo:: fix this comment...
     """
     for t in range(T):
         #rand = np.random.choice(range(len(data)), len(data), replace=False)
         #for i in rand:
         #for x in data:
-        x = data[t % len(data)]
+            x = data[t % len(data)]
         #i0 = np.argmax(W.dot(x))
-        i0 = np.argmin(norm(W-x, axis=2))
-        dW = n(t) * neighbourhood_g(W, i0, sigma(t)).T * (x - W).T
-        W += dW.T
+            i0 = np.argmin(norm(W-x, axis=2, ord=2))
+            dW = n(t) * neighbourhood(W, i0, sigma(t)).T * (x - W).T
+            W += dW.T
             #if normalise:
             #    W.T.dot(1/norm(W, axis=2))
     return W
+
 
 def ordering_phase(data, W, T_order, tau, sigma_0, n_0, normalise=True):
     """
@@ -74,6 +72,7 @@ def ordering_phase(data, W, T_order, tau, sigma_0, n_0, normalise=True):
     sigma = lambda t: sigma_0 * np.exp(-t / tau)
     n = lambda t: n_0 * np.exp(-t / tau)
     return kohonen(data, W, T_order, sigma, n, normalise)
+
 
 def convergence_phase(data, W, T_conv, tau, sigma_conv, n_conv, normalise=True):
     """
