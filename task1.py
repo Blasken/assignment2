@@ -36,7 +36,7 @@ for q in ['a','b']:
     tau = 200.0
     sigma_conv = 0.9
     n_conv = 0.01
-    T_conv = 5000
+    T_conv = 50000
     convergence_phase(triangle_data, W, T_conv, tau, sigma_conv, n_conv)
 
     ax3.scatter(W[:, :, 0], W[:, :, 1], color='black', marker='*')
