@@ -129,11 +129,11 @@ def plot():
     class1 = temp[np.where(temp[:, 0] == 1.0), 1:][0]
     class2 = temp[np.where(temp[:, 0] == -1.0), 1:][0]
 
-    scatter1 = plt.scatter(class1[:, 0], class1[:, 1], color='blue', label='+ 1')
-    scatter2 = plt.scatter(class2[:, 0], class2[:, 1], color='red', label='- 1')
+    scatter1 = plt.scatter(class1[:, 0], class1[:, 1], color='blue', label='+1')
+    scatter2 = plt.scatter(class2[:, 0], class2[:, 1], color='red', label='-1')
 
     W = np.load('W1.npy')
-    scatter3 = plt.scatter(W[:, 0], W[:, 1], color='black', marker='^', edgecolor='black', facecolors='yellow', label='weigths') #  linewidths=3.0
+    scatter3 = plt.scatter(W[:, 0], W[:, 1], color='black', marker='^', linewidths=3.0, edgecolor='black', facecolors='black', label='weigths')
 
     plt.ylabel('$x_2$')
     plt.xlabel('$x_1$')
@@ -163,7 +163,7 @@ def task3a():
 
 def task3b():
     print('Training network...')
-    RBF(10)
+    RBF(20)
     print('Creating decision boundary...')
     decision_boundary()
     print('Plotting..')

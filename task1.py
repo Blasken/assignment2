@@ -14,7 +14,7 @@ for q in ['a', 'b']:
     nr_of_input_units = 2
     nr_of_output_units = (1, 100)
     W_shape = (nr_of_output_units[0], nr_of_output_units[1], nr_of_input_units)
-    W = np.random.normal(loc=0.5, scale=0.01, size=W_shape)
+    W = np.random.normal(loc=0.5, scale=0.1, size=W_shape)
     W = W - np.array([0, 0])
     ax1.plot(W[:, :, 0].T, W[:, :, 1].T, color='black')
     ax1.scatter(W[:, :, 0], W[:, :, 1], color='black', marker='*')
