@@ -5,6 +5,7 @@ from data import task3
 
 #plt.rc('text', usetex=True)
 
+
 def g(x, W):
     """
     Function g in assignment
@@ -14,6 +15,7 @@ def g(x, W):
     """
     normalisation = np.sum(np.exp(-norm(x-W, axis=1)**2/2))
     return np.array(list(map(lambda j: np.exp(-norm(x-W[j])**2/2) / normalisation, range(len(W))))).reshape(len(W), 1)
+
 
 def RBF(k):
     min_Cv = np.Inf
@@ -51,7 +53,8 @@ def RBF(k):
         print('Supervised learning')
         nr_of_iterations = 3000
         for _ in range(nr_of_iterations):
-            for i in training_data:
+            rands = np.random.choice(len(training_data), len(training_data), replace=False)
+            for i in rands:
                 (point, c) = task3[i]
                 x = np.array(list(point))
 
@@ -63,6 +66,7 @@ def RBF(k):
                 b -= n*db
 
         # validation
+        print('validation')
         Cvs = []
         for i in validation_data:
             (point, c) = task3[i]
@@ -78,16 +82,18 @@ def RBF(k):
             W2_ = W2
             b_ = b
 
-    np.save('W1.npy', W1_)
-    np.save('W2.npy', W2_)
-    np.save('b.npy', b_)
+    np.save('k_' + str(k) + '_W1.npy', W1_)
+    np.save('k_' + str(k) + '_W2.npy', W2_)
+    np.save('k_' + str(k) + '_b.npy', b_)
+    np.save('k_' + str(k) + '_cvs.npy', average_Cvs)
+
     print(min_Cv)
     return average_Cvs
 
-def decision_boundary():
-    W1_ = np.load('W1.npy')
-    W2_ = np.load('W2.npy')
-    b_ = np.load('b.npy')
+def decision_boundary(name_W1, name_W2, name_b, name_D):
+    W1_ = np.load(name_W1)
+    W2_ = np.load(name_W2)
+    b_ = np.load(name_b)
 
     x1 = np.arange(-15, 25, 0.05)
     x2 = np.arange(-15, 25, 0.05)
@@ -102,7 +108,7 @@ def decision_boundary():
             x1 = X1[i, j]
             x2 = X2[i, j]
             Z[i, j] = y(x1, x2)
-    np.save('Z.npy', Z)
+    #np.save('Z.npy', Z)
 
     Z = np.round(Z)
     A = np.where(Z == 0.0)
@@ -121,10 +127,10 @@ def decision_boundary():
 
     C = np.array(points2)
     D = C[C[:, 0].argsort()]
-    np.save('D.npy', D)
+    np.save(name_D, D)
 
 
-def plot():
+def plot(name_D):
     D = np.load('D.npy')
 
     plt.figure()
@@ -175,18 +181,18 @@ def task3a():
     print('Training network...')
     RBF(5)
     print('Creating decision boundary...')
-    decision_boundary()
+    decision_boundary('k_5_W1.npy', 'k_5_W1.npy', 'k_5_W1.npy', 'k_5_D.npy')
     print('Plotting..')
-    plot()
+    plot('k_5_D.npy')
 
 
 def task3b():
     print('Training network...')
     RBF(20)
     print('Creating decision boundary...')
-    decision_boundary()
+    decision_boundary('k_20_W1.npy', 'k_20_W2.npy', 'k_20_b.npy', 'k_20_D.npy')
     print('Plotting..')
-    plot()
+    plot('k_20_D.npy')
 
 #task3c()
 #plot_task3c()
