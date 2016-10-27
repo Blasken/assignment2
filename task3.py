@@ -90,10 +90,10 @@ def RBF(k):
     print(min_Cv)
     return average_Cvs
 
-def decision_boundary(name_W1, name_W2, name_b, name_D):
-    W1_ = np.load(name_W1)
-    W2_ = np.load(name_W2)
-    b_ = np.load(name_b)
+def decision_boundary(k):
+    W1_ = np.load('k_' + str(k) + '_W1.npy')
+    W2_ = np.load('k_' + str(k) + '_W2.npy')
+    b_ = np.load('k_' + str(k) + '_b.npy')
 
     x1 = np.arange(-15, 25, 0.05)
     x2 = np.arange(-15, 25, 0.05)
@@ -108,7 +108,6 @@ def decision_boundary(name_W1, name_W2, name_b, name_D):
             x1 = X1[i, j]
             x2 = X2[i, j]
             Z[i, j] = y(x1, x2)
-    #np.save('Z.npy', Z)
 
     Z = np.round(Z)
     A = np.where(Z == 0.0)
@@ -122,16 +121,43 @@ def decision_boundary(name_W1, name_W2, name_b, name_D):
     # failing points...
     points2 = [points[0]]
     for i in range(len(points)-1):
-        if np.linalg.norm(np.array(points[i+1])-np.array(points[i])) < 0.25:
+        if np.linalg.norm(np.array(points[i+1])-np.array(points[i])) < 0.1:
             points2 += [points[i+1]]
 
-    C = np.array(points2)
+    C = np.array(points)
     D = C[C[:, 0].argsort()]
-    np.save(name_D, D)
+    np.save('k_' + str(k) + '_D.npy', D)
 
 
-def plot(name_D):
-    D = np.load('D.npy')
+def plot(k):
+    D = np.load('k_' + str(k) + '_D.npy')
+
+    if k == 20:
+        points = [D[0, :]]
+        for i in range(len(D)-1):
+            if np.linalg.norm(D[i, 1] - D[i+1, 1]) <= 0.05:
+                points += [D[i+1, :]]
+
+        D = np.array(points)
+
+    if k == 5:
+        current_point = D[0, :]
+        points = [current_point]
+        i = 0
+        while i < len(D):
+            current_point = D[i, :]
+            x = current_point[0]
+            y = current_point[1]
+
+            i += 1
+            j = i
+            while j < len(D) and D[j, 0] == x:
+                if D[j, 1] > y:
+                    y = D[j, 1]
+                j += 1
+            points.append([x, y])
+            i = j
+        D = np.array(points)
 
     plt.figure()
     line = plt.plot(D[:, 0].T, D[:, 1].T, color='black', label='decision boundary')
@@ -143,7 +169,7 @@ def plot(name_D):
     scatter1 = plt.scatter(class1[:, 0], class1[:, 1], color='blue', label='+1')
     scatter2 = plt.scatter(class2[:, 0], class2[:, 1], color='red', label='-1')
 
-    W = np.load('W1.npy')
+    W = np.load('k_' + str(k) + '_W1.npy')
     scatter3 = plt.scatter(W[:, 0], W[:, 1], color='black', marker='s', linewidths=3.0, edgecolor='black', facecolors='black', label='weigths')
 
     plt.ylabel('$x_2$')
@@ -155,14 +181,15 @@ def plot(name_D):
 
 
 def task3c():
-    ks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-    result = []
+    ks = [15, 16, 17, 18, 19]
+    #result = []
     for k in ks:
         print('k: ' + str(k))
-        average_cvs = RBF(k)
-        result.append(np.average(average_cvs))
-        np.save('task3c_' + str(k) + '.npy', result)
-    np.save('task3c_.npy', result)
+        RBF(k)
+        #average_cvs = RBF(k)
+        #result.append(np.average(average_cvs))
+        #np.save('task3c_' + str(k) + '.npy', result)
+    #np.save('task3c_.npy', result)
 
 
 def plot_task3c():
@@ -179,20 +206,20 @@ def plot_task3c():
 
 def task3a():
     print('Training network...')
-    RBF(5)
+    #RBF(5)
     print('Creating decision boundary...')
-    decision_boundary('k_5_W1.npy', 'k_5_W1.npy', 'k_5_W1.npy', 'k_5_D.npy')
+    #decision_boundary(5)
     print('Plotting..')
-    plot('k_5_D.npy')
+    plot(5)
 
 
 def task3b():
     print('Training network...')
-    RBF(20)
+    #RBF(20)
     print('Creating decision boundary...')
-    decision_boundary('k_20_W1.npy', 'k_20_W2.npy', 'k_20_b.npy', 'k_20_D.npy')
+    #decision_boundary(20)
     print('Plotting..')
-    plot('k_20_D.npy')
+    plot(20)
 
 #task3c()
 #plot_task3c()
