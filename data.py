@@ -11,8 +11,10 @@ def plot_triangle(ax):
     """
     xs1 = np.arange(0,0.51,0.01)
     xs2 = np.arange(0.5,1.01,0.01)
-    ax.plot(xs1, sqrt3*xs1, color='blue')
-    ax.plot(xs2, -sqrt3*xs2+sqrt3, color='blue')
+    xs3 = np.arange(0.0,1.01,0.01)
+    ax.plot(xs1, sqrt3*xs1, color='black')
+    ax.plot(xs2, -sqrt3*xs2+sqrt3, color='black')
+    ax.plot(xs3, np.zeros(len(xs3)), color='black')
 
 def plot_data(data):
     """
@@ -44,6 +46,13 @@ triangle_data = np.array(points)
 
 # b)
 wine_data = np.loadtxt('wine.data.txt', delimiter=',')
+wine_classes = wine_data[:, 0]
+wine_class_data = wine_data[:, 1:14]
+mean = np.mean(wine_class_data, axis=0)
+wine_class_data -= mean
+var = np.var(wine_class_data, axis=0)
+wine_class_data /= np.sqrt(var)
+wine_data_n = np.append(wine_classes.reshape(len(wine_classes), 1), wine_class_data, axis=1)
 
 # In the data set, the first column is a classification and should be ignored during learning.
 class1 = wine_data[np.where(wine_data[:, 0] == 1), 1:14][0]
