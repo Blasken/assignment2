@@ -51,5 +51,5 @@ for q in ['a', 'b']:
     ax3.set_title('Convergence Phase')
     plot_triangle(ax3)
 
-    plt.show()
-    #plt.savefig('task1' + q + '.png')
+    #plt.show()
+    plt.savefig('task1' + q + '.png')
