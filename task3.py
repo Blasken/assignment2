@@ -3,6 +3,8 @@ from numpy.linalg import norm
 import matplotlib.pyplot as plt
 from data import task3
 
+#plt.rc('text', usetex=True)
+
 def g(x, W):
     """
     Function g in assignment
@@ -16,12 +18,14 @@ def g(x, W):
 def RBF(k):
     min_Cv = np.Inf
     average_Cvs = []
-    for z in range(1):
+    for z in range(20):
+        print('z: ' + str(z))
         nr_of_input_units = 2
         W1 = np.random.uniform(-1, 1, size=(k, nr_of_input_units))
         # unsupervised part: find W
         n = 0.02
-        nr_of_iterations = 10**4
+        print('Unsupervised training')
+        nr_of_iterations = 10**5
         for _ in range(nr_of_iterations):
             i = np.random.choice(range(len(task3)), None, replace=False)
             (point, c) = task3[i]
@@ -42,9 +46,10 @@ def RBF(k):
         B = 0.5
         W2 = np.random.uniform(-1, 1, size=(k, 1))
         b = np.random.uniform(-1, 1)
-        nr_of_iterations = 3000
 
         # training
+        print('Supervised learning')
+        nr_of_iterations = 3000
         for _ in range(nr_of_iterations):
             for i in training_data:
                 (point, c) = task3[i]
@@ -133,7 +138,7 @@ def plot():
     scatter2 = plt.scatter(class2[:, 0], class2[:, 1], color='red', label='-1')
 
     W = np.load('W1.npy')
-    scatter3 = plt.scatter(W[:, 0], W[:, 1], color='black', marker='^', linewidths=3.0, edgecolor='black', facecolors='black', label='weigths')
+    scatter3 = plt.scatter(W[:, 0], W[:, 1], color='black', marker='s', linewidths=3.0, edgecolor='black', facecolors='black', label='weigths')
 
     plt.ylabel('$x_2$')
     plt.xlabel('$x_1$')
@@ -144,12 +149,26 @@ def plot():
 
 
 def task3c():
-    ks = [1, 2, 3, 4, 5] #, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    ks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
     result = []
     for k in ks:
+        print('k: ' + str(k))
         average_cvs = RBF(k)
-        result += [average_cvs]
-    print(np.array(result))
+        result.append(np.average(average_cvs))
+        np.save('task3c_' + str(k) + '.npy', result)
+    np.save('task3c_.npy', result)
+
+
+def plot_task3c():
+    ks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    result = np.load('task3c_.npy')
+    plt.figure()
+    plt.scatter(ks, result)
+    plt.plot(ks, result)
+    plt.ylabel('Average $C_v$')
+    plt.xlabel('k')
+    plt.show()
+    print(result)
 
 
 def task3a():
@@ -168,5 +187,8 @@ def task3b():
     decision_boundary()
     print('Plotting..')
     plot()
+
+#task3c()
+#plot_task3c()
 
 task3b()
