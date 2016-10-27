@@ -55,4 +55,5 @@ for x in class3_n:
     w = W[row, column]
     ax2.scatter(w[0], w[1], color='red')
 
+plt.savefig('t2')
 plt.show()
