@@ -180,8 +180,9 @@ def plot(k):
     plt.show()
 
 
-def task3c():
-    ks = [15, 16, 17, 18, 19]
+def task3c(ks=None):
+    if ks is None:
+        ks = [15, 16, 17, 18, 19]
     #result = []
     for k in ks:
         print('k: ' + str(k))
@@ -224,4 +225,4 @@ def task3b():
 #task3c()
 #plot_task3c()
 
-task3b()
+# task3b()
